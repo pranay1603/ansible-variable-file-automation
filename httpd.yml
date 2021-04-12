@@ -1,0 +1,21 @@
+- name: "configuring systems"
+  hosts: all
+  vars_files:
+          - "{{ ansible_facts['distribution'] }}.yml"
+  tasks:
+
+  - name: "installing the {{ software }}"
+    package:
+      name: "{{ software }}"
+      state: present 
+
+  - name: "copying the webpage"
+    template: 
+      src: "web.html"
+      dest: "/var/www/html/"
+
+  - name: "starting the service of {{ software }}"
+    service:
+      name: "{{ software }}" 
+      state: started
+  
